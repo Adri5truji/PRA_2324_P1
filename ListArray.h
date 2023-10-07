@@ -32,9 +32,9 @@ class ListArray : public List<T> {
 	}
 	friend std::ostream& operator<<(std::ostream &out, const ListArray<T>&list){
 		out <<"[";
-		for(int i = 0; i < list.arr.max(); i++){
+		for(int i = 0; i < list.n(); i++){
 			out << list.arr[i];
-			if(i < list.data.max() - 1)
+			if(i < list.data.n() - 1)
 				out << ", ";
 		}
 		out <<"]";
