@@ -32,9 +32,9 @@ class ListArray : public List<T> {
 	}
 	friend std::ostream& operator<<(std::ostream &out, const ListArray<T>&list){
 		out <<"[";
-		for(int i = 0; i < list.max(); i++){
+		for(int i = 0; i < list.n; i++){
 			out << list.arr[i];
-			if(i < list.max() - 1)
+			if(i < list.n - 1)
 				out << ", ";
 		}
 		out <<"]";
@@ -56,7 +56,7 @@ class ListArray : public List<T> {
                 if(pos > max || pos < 0)
 			throw std::out_of_range("La posicion no esta en el array ");
 		T aux = arr[pos];
-		delete pos;
+		delete[] arr[pos];
 		return aux;
 	}
         virtual T get(int pos) override{
