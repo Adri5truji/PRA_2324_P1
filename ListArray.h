@@ -32,9 +32,9 @@ class ListArray : public List<T> {
 	}
 	friend std::ostream& operator<<(std::ostream &out, const ListArray<T>&list){
 		out <<"[";
-		for(int i = 0; i < list.size(); i++){
-			out << list[i];
-			if(i < list.size() - 1)
+		for(int i = 0; i < list.arr.max(); i++){
+			out << list.arr[i];
+			if(i < list.data.max() - 1)
 				out << ", ";
 		}
 		out <<"]";
@@ -69,12 +69,14 @@ class ListArray : public List<T> {
 			if(arr[i] == e)
 				return i;
 		}
+		return -1;
 	}
         virtual bool empty() override{
 		for(int i = 0; i < max; i++){
 			if(arr[i] != 0)
 				return false;
 		}
+		return true;
 	}
         virtual int size() override{
 		return max;
