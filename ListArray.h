@@ -30,11 +30,14 @@ class ListArray : public List<T> {
 			throw std::out_of_range("La posicion no esta en el array ");
 		return arr[pos];
 	}
+	 virtual int size() override{
+                return max;
+        }
 	friend std::ostream& operator<<(std::ostream &out, const ListArray<T>&list){
 		out <<"[";
-		for(int i = 0; i < list.n(); i++){
+		for(int i = 0; i < list.size(); i++){
 			out << list.arr[i];
-			if(i < list.data.n() - 1)
+			if(i < list.size() - 1)
 				out << ", ";
 		}
 		out <<"]";
@@ -77,8 +80,5 @@ class ListArray : public List<T> {
 				return false;
 		}
 		return true;
-	}
-        virtual int size() override{
-		return max;
 	}
 };
