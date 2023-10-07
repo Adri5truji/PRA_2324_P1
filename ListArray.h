@@ -56,7 +56,10 @@ class ListArray : public List<T> {
                 if(pos > max || pos < 0)
 			throw std::out_of_range("La posicion no esta en el array ");
 		T aux = arr[pos];
-		delete[] arr[pos];
+		for(int i = 0; i < n; i++)
+			arr[i] = arr[i + 1];
+		max--;
+		n--;
 		return aux;
 	}
         virtual T get(int pos) override{
