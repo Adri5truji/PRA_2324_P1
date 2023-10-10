@@ -96,7 +96,7 @@ class ListArray : public List<T> {
 		if(pos > size() || pos < 0)
                         throw std::out_of_range("La posicion no esta en el array\n");
 
-		T aux = &arr[pos];
+		T *aux = &arr[pos];
 		T num = arr[pos];
 		delete *aux;
 
