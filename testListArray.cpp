@@ -1,5 +1,6 @@
 #include <iostream>
 #include "ListArray.h"
+#include "List.h"
 
 int main(){
     std::cout << std::boolalpha; // configuramos cout para mostrar true/false en lugar de 0/1.

@@ -11,10 +11,11 @@ class ListArray : public List<T> {
 	int n;
 	static const int MINSIZE;
  	void resize(int new_size){
-		ListArray();
-		this->arr = arr;
-		~ListArray();
-		*arr = this->arr;
+		T* new_arr = new T[new_size];
+		for(int i = 0; i < n; i++)
+			new_arr[i] = arr[i];
+		delete[] arr;
+		arr = new_arr;
 		max = new_size;
 	}
 
@@ -41,18 +42,21 @@ class ListArray : public List<T> {
 		return out;
 	}
 
-	virtual void insert(int pos, T e) override{
+	void insert(int pos, T e) override{
                 if(pos > max || pos < 0)
                         throw std::out_of_range("La posicion no esta en el array ");
 		arr[pos] = e;
 	}
-        virtual void append(T e) override{
-		arr[max] = e;
+        void append(T e) override{
+		if(n >= max)
+			resize(max * 2);	
+		arr[n] = e;
+		n++;
 	}
-        virtual void prepend(T e) override{
+        void prepend(T e) override{
 		arr[0] = e;
 	}
-       	virtual T remove(int pos) override{
+       	T remove(int pos) override{
                 if(pos > max || pos < 0)
 			throw std::out_of_range("La posicion no esta en el array ");
 		T aux = arr[pos];
@@ -62,26 +66,26 @@ class ListArray : public List<T> {
 		n--;
 		return aux;
 	}
-        virtual T get(int pos) override{
+        T get(int pos) override{
                 if(pos > max || pos < 0)
                         throw std::out_of_range("La posicion no esta en el array ");
 		return arr[pos];
 	}
-        virtual int search(T e) override{
+        int search(T e) override{
 		for(int i = 0; i < max; i++){
 			if(arr[i] == e)
 				return i;
 		}
 		return -1;
 	}
-        virtual bool empty() override{
+        bool empty() override{
 		for(int i = 0; i < max; i++){
 			if(arr[i] != 0)
 				return false;
 		}
 		return true;
 	}
-	       virtual int size() override{
+	int size() override{
                 return max;
         }
 };
