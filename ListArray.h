@@ -43,9 +43,9 @@ class ListArray : public List<T> {
 
 	friend std::ostream& operator<<(std::ostream &out, const ListArray<T>&list){
 		out <<"[";
-		for(int i = 0; i < list.size(); i++){
+		for(int i = 0; i < list.n; i++){
 			out << list.arr[i];
-			if(i < list.size() - 1)
+			if(i < list.n - 1)
 				out << ", ";
 		}
 		out <<"]";
@@ -97,7 +97,7 @@ class ListArray : public List<T> {
                         throw std::out_of_range("La posicion no esta en el array\n");
 
 		T aux = arr[pos];
-		delete arr[pos];
+		delete *aux;
 		n--;
 
 		for(int i = pos; i < size(); i++)
