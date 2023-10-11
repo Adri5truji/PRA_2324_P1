@@ -31,18 +31,19 @@ class ListArray : public List<T> {
 		n = 0;
 	}
 
-	int size() override{
-                return n;
+	virtual int size() override{
+      	       return n;
         }
 
 	T operator[](int pos){
 		if(pos > size() || pos < 0)
-			throw std::out_of_range("La posicion no esta en el array\n");
+			throw std::out_of_range("La posicion no esta en el array");
+
 		return arr[pos];
 	}
 
 	friend std::ostream& operator<<(std::ostream &out, const ListArray<T>&list){
-		out <<"[";
+		out <<"List => [";
 		for(int i = 0; i < list.n; i++){
 			out << list.arr[i];
 			if(i < list.n - 1)
@@ -50,38 +51,36 @@ class ListArray : public List<T> {
 		}
 		out <<"]";
 		return out;
-	}
+		}
 
-	void append(T e) override{
+	virtual void prepend(T e) override{
                 if(size() == max - 1)
                         resize(max * 2);
 
-                for(int i = size(); i > 0; i--)
+                for(int i = size() - 1; i > 0; i--)
                         arr[i] = arr[i - 1];
+
                 arr[0] = e;
                 n++;
         }
 
-        void prepend(T e) override{
+        virtual void append(T e) override{
                 if(size() == max - 1)
                         resize(max * 2);
 
-                arr[size() + 1] == e;
+                arr[size() + 1] = e;
                 n++;
         }
 
-	void insert(int pos, T e) override{
+	virtual void insert(int pos, T e) override{
 		if(pos > size() || pos < 0)
-                        throw std::out_of_range("La posicion no esta en el array\n");
+                        throw std::out_of_range("La posicion no esta en el array");
 
-		if(size() == max - 1)
-			resize(max * 2);
-
-		if(pos == 0)
-			append(e);
+		else if(pos == 0)
+			prepend(e);
 
 		else if(pos == max - 1)
-			prepend(e);
+			append(e);
 
 		else{
 		for(int i = size(); i > pos; i--)
@@ -92,29 +91,27 @@ class ListArray : public List<T> {
 		}
 	}
 
-       	T remove(int pos) override{
-		if(pos > size() || pos < 0)
-                        throw std::out_of_range("La posicion no esta en el array\n");
+       	virtual T remove(int pos) override{
+		if(pos > size() - 1 || pos < 0)
+                        throw std::out_of_range("La posicion no esta en el array");
 
-		T *aux = &arr[pos];
 		T num = arr[pos];
-		delete *aux;
 
-		for(int i = pos; i < size(); i++)
+		for(int i = pos; i < size() - 1; i++)
 			arr[i] = arr[i + 1];
 
 		n--;
 		return num;
 	}
 
-        T get(int pos) override{
-		if(pos > size() || pos < 0)
-                        throw std::out_of_range("La posicion no esta en el array\n");
+        virtual T get(int pos) override{
+		if(pos > size() - 1 || pos < 0)
+                        throw std::out_of_range("La posicion no esta en el array");
 
 		return arr[pos];
 	}
 	
-       	int search(T e) override{
+       	virtual int search(T e) override{
 		for(int i = 0; i < size(); i++){
 			if(arr[i] == e)
 				return i;
@@ -123,7 +120,7 @@ class ListArray : public List<T> {
 		return -1;
 	}
 
-        bool empty() override{
+        virtual bool empty() override{
 		if(n == 0)
 			return true;
 		else
